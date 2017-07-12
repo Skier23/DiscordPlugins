@@ -330,7 +330,6 @@ class Register:
             data = discord.Embed(colour=user.colour)
             data.add_field(name="Congrats!:sparkles:",value="You have set your Other to {}".format(other))
             await self.bot.say(embed=data)
-    @commands.command(name="test", pass_context=True, invoke_without_command=True, no_pm=True)
     @commands.command(name="remove", pass_context=True, invoke_without_command=True, no_pm=True)
     async def _rem(self, ctx, user : discord.Member=None):
         """Remove the specified member from the registry"""
