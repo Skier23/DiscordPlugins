@@ -25,9 +25,8 @@ class Register:
         if server.id not in self.usersArray:
             self.usersArray[server.id] = {}
         if user.id not in self.usersArray[server.id]:
-            await self.bot.say(type(self.usersArray[server.id]))
+            await self.bot.say(type(self.usersArray[server.id][user.id]["SocialClub"]))
             for key in self.usersArray[server.id]:
-                await self.bot.say(type(self.usersArray[server.id][user.id]["SocialClub"]))
                 if self.usersArray[server.id][user.id]["SocialClub"] == rockstarID:
                     await self.bot.say("A user has already registered with this SocialClub. Try again.")
                 #return
