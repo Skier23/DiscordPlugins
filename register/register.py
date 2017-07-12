@@ -344,7 +344,9 @@ class Register:
         else:
             del self.usersArray[server.id][user.id]
             dataIO.save_json(self.profile, self.usersArray)
-            await self.bot.say(type(self.usersArray))
+            data = discord.Embed(colour=user.colour)
+            data.add_field(name="Removed", value="You have removed {}'s record from the registrar.".format(user.mention))
+            await self.bot.say(embed=data)
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
