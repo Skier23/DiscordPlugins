@@ -41,7 +41,7 @@ class Register:
             data.add_field(name="Error:warning:",value="Oops, it seems like you already have an account, {}.".format(user.mention))
             await self.bot.say(embed=data)
 	@commands.command(name="remove", pass_context=True, invoke_without_command=True, no_pm=True)
-    async def _rem(self, ctx, rockstarID : str, user: discord.Member = None):
+    async def _rem(self, ctx, rockstarID : str):
         """Sign up with your SocialClub name to join channels and drops"""
 		
 		
