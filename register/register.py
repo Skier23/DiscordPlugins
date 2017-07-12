@@ -57,9 +57,6 @@ class Register:
             user = ctx.message.author
             if user.id in self.usersArray[server.id]:
                 data = discord.Embed(description="{}".format(server), colour=user.colour)
-                #userName = "{}".format(user.mention)
-                #data.add_field(name="Discord:", value=" test {}".format(user.mention))
-                #data.add_field(name="Congrats!:sparkles:", value="You have officially created your account for **{}**, {}.".format(server, user.mention))
                 if "Age" in self.usersArray[server.id][user.id]:
                     age = self.usersArray[server.id][user.id]["Age"]
                     data.add_field(name="Age:", value=age)
@@ -101,7 +98,7 @@ class Register:
                     data.set_author(name=name, url=user.avatar_url)
                     data.set_thumbnail(url=user.avatar_url)
                 else:
-                    #data.set_author(name=user.name.format(user.mention))
+                    data.set_author(name=user.name.format(user.mention))
 
                 await self.bot.say(embed=data)
             else:
@@ -152,7 +149,7 @@ class Register:
                     name = str(user)
                     name = " ~ ".join((name, user.nick)) if user.nick else name
                     name = "{}".format(user.mention)
-                    #data.set_author(name=name, url=user.avatar_url)
+                    data.set_author(name=name, url=user.avatar_url)
                     data.set_thumbnail(url=user.avatar_url)
                 else:
                     data.set_author(name=user.name)
