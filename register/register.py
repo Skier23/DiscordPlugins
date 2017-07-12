@@ -339,13 +339,13 @@ class Register:
             user = ctx.message.author
         if server.id not in self.usersArray:
             self.usersArray[server.id] = {}
-        #if user.id not in self.usersArray[server.id]:
-        #    await self.bot.say("User is not registered")
-        #else:
-            #self.usersArray[server.id][user.id] = {}
-            #self.usersArray[server.id].remove(user.id)
-            #dataIO.save_json(self.profile, self.usersArray)
-            #await self.bot.say("removed user")
+        if user.id not in self.usersArray[server.id]:
+            await self.bot.say("User is not registered")
+        else:
+            self.usersArray[server.id][user.id] = {}
+            self.usersArray[server.id].remove(user.id)
+            dataIO.save_json(self.profile, self.usersArray)
+            await self.bot.say("removed user")
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
