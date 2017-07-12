@@ -45,7 +45,7 @@ class Register:
             await self.bot.say(embed=data)
     @commands.command(name="account", pass_context=True, invoke_without_command=True, no_pm=True)
     async def _acc(self, ctx, user : discord.Member=None):
-        """Your/Others Register"""
+        """Your/Others account"""
                     
         server = ctx.message.server
         
@@ -95,7 +95,7 @@ class Register:
                 if user.avatar_url:
                     name = str(user)
                     name = " ~ ".join((name, user.nick)) if user.nick else name
-                    data.set_author(name=name, url=user.avatar_url)
+                    data.set_author("{}".format(user.mention)")
                     data.set_thumbnail(url=user.avatar_url)
                 else:
                     data.set_author(name=user.name)
