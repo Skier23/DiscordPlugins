@@ -9,7 +9,6 @@ from .utils.chat_formatting import *
 class Register:
     """The Register Cog. Also will handle currency/reputation"""
 
-	
     def __init__(self, bot):
         self.bot = bot
         self.profile = "data/account/accounts.json"
@@ -18,7 +17,8 @@ class Register:
     @commands.command(name="signup", pass_context=True, invoke_without_command=True, no_pm=True)
     async def _reg(self, ctx, rockstarID : str):
         """Sign up with your SocialClub name to join channels and drops"""
-
+		
+		
         server = ctx.message.server
         user = ctx.message.author
         
@@ -26,14 +26,19 @@ class Register:
             self.usersArray[server.id] = {}
         if user.id not in self.usersArray[server.id]:
 			
+			for thisUser in self.usersArray[server.id]
+				if self.usersArray[server.id][user.id]["SocialClub"] == rockstarID
+					await self.bot.say("A user has already registered with this SocialClub. Try again.")
+					return
             self.usersArray[server.id][user.id] = {}
+			self.usersArray[server.id][user.id].update({"SocialClub" : rockstarID})
             dataIO.save_json(self.profile, self.usersArray)
             data = discord.Embed(colour=user.colour)
             data.add_field(name="Congrats!:sparkles:", value="You have officially created your account for **{}**, {}.".format(server, user.mention))
             await self.bot.say(embed=data)
         else: 
             data = discord.Embed(colour=user.colour)
-            data.add_field(name="Error:warning:",value="Oops, it seems like you already have an account flag1, {}.".format(user.mention))
+            data.add_field(name="Error:warning:",value="Oops, it seems like you already have an account, {}.".format(user.mention))
             await self.bot.say(embed=data)
         
     
