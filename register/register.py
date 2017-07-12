@@ -335,7 +335,7 @@ class Register:
         """Remove the specified member from the registry"""
         
         server = ctx.message.server
-        #if not user
+        if not user
         #    user = ctx.message.author
         #if server.id not in self.usersArray:
         #    self.usersArray[server.id] = {}
