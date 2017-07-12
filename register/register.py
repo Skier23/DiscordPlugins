@@ -59,7 +59,7 @@ class Register:
                 data = discord.Embed(description="{}".format(server), colour=user.colour)
                 #userName = "{}".format(user.mention)
                 #data.add_field(name="Discord:", value=" test {}".format(user.mention))
-                data.add_field(name="Congrats!:sparkles:", value="You have officially created your account for **{}**, {}.".format(server, user.mention))
+                #data.add_field(name="Congrats!:sparkles:", value="You have officially created your account for **{}**, {}.".format(server, user.mention))
                 if "Age" in self.usersArray[server.id][user.id]:
                     age = self.usersArray[server.id][user.id]["Age"]
                     data.add_field(name="Age:", value=age)
