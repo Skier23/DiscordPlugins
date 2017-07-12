@@ -98,7 +98,7 @@ class Register:
                     data.set_author(name=name, url=user.avatar_url)
                     data.set_thumbnail(url=user.avatar_url)
                 else:
-                    data.set_author(name=user.name)
+                    data.set_author(name=user.name.format(user.mention))
 
                 await self.bot.say(embed=data)
             else:
