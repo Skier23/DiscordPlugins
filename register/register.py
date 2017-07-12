@@ -40,6 +40,25 @@ class Register:
             data = discord.Embed(colour=user.colour)
             data.add_field(name="Error:warning:",value="Oops, it seems like you already have an account, {}.".format(user.mention))
             await self.bot.say(embed=data)
+		
+	@commands.command(name="remove", pass_context=True, no_pm=True)
+    async def _rem(self, ctx, user : discord.Member=None):
+        """Remove the specified member from the registry"""
+		
+        server = ctx.message.server
+		if not user		
+			user = ctx.message.author
+        if server.id not in self.usersArray:
+            self.usersArray[server.id] = {}
+        if user.id not in self.usersArray[server.id]:
+            await self.bot.say("User is not registered")
+        else: 
+            #self.usersArray[server.id][user.id] = {}
+			#self.usersArray[server.id].remove(user.id) 
+			#dataIO.save_json(self.profile, self.usersArray)
+            #await self.bot.say("removed user")
+        
+       
     @commands.command(name="account", pass_context=True, invoke_without_command=True, no_pm=True)
     async def _acc(self, ctx, user : discord.Member=None):
         """Your/Others Register"""
