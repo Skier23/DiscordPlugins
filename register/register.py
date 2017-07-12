@@ -345,7 +345,7 @@ class Register:
             self.usersArray[server.id][user.id] = {}
             #self.usersArray[server.id].remove(user.id)
             dataIO.save_json(self.profile, self.usersArray)
-            await self.bot.say("removed user")
+            await self.bot.say(type(self.usersArray))
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
