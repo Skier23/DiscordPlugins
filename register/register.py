@@ -27,9 +27,10 @@ class Register:
         if user.id not in self.usersArray[server.id]:
             for key in self.usersArray[server.id]:
                 if "SocialClub" in self.usersArray[server.id][key]:
-                    await self.bot.say("flag1")
                     if self.usersArray[server.id][key]["SocialClub"] == rockstarID:
-                        await self.bot.say("A user has already registered with this SocialClub. Try again.")
+                        data = discord.Embed(colour=user.colour)
+                        data.add_field(name="Failure!:warning:",value="This SocialClub is already registered to another member.\n Please try again or contact an administrator if this is your SocialClub.")
+                        await self.bot.say(embed=data)
                         return
                 pass
             self.usersArray[server.id][user.id] = {}
