@@ -41,8 +41,8 @@ class Register:
             data.add_field(name="Error:warning:",value="Oops, it seems like you already have an account, {}.".format(user.mention))
             await self.bot.say(embed=data)
 		
-	@commands.command(name="remove", pass_context=True, no_pm=True)
-    async def _rem(self, ctx, user : discord.Member=None):
+	@commands.command(name="removeMember", pass_context=True, no_pm=True)
+    async def _remove(self, ctx, user : discord.Member=None):
         """Remove the specified member from the registry"""
 		
         server = ctx.message.server
