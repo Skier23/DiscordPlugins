@@ -330,22 +330,10 @@ class Register:
             data = discord.Embed(colour=user.colour)
             data.add_field(name="Congrats!:sparkles:",value="You have set your Other to {}".format(other))
             await self.bot.say(embed=data)
-    @update.command(pass_context=True, no_pm=True)
-    async def _remove(self, ctx, user : discord.Member=None):
-        """Remove the specified member from the registry"""
-		
-        server = ctx.message.server
-        if not user		
-            user = ctx.message.author
-        if server.id not in self.usersArray:
-            self.usersArray[server.id] = {}
-        if user.id not in self.usersArray[server.id]:
-            await self.bot.say("User is not registered")
-        else: 
-            #self.usersArray[server.id][user.id] = {}
-            #self.usersArray[server.id].remove(user.id) 
-            #dataIO.save_json(self.profile, self.usersArray)
-            #await self.bot.say("removed user")
+    @commands.command(name="test", pass_context=True, invoke_without_command=True, no_pm=True)
+    async def test(self, ctx, test)
+        """"Testing method"""
+        await self.bot.say("test")
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
