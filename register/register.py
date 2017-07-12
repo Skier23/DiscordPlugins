@@ -148,8 +148,8 @@ class Register:
                 if user.avatar_url:
                     name = str(user)
                     name = " ~ ".join((name, user.nick)) if user.nick else name
-                    name = "{}".format(user.mention)
-                    data.set_author(name=name)
+                    name = "{}".format(user.name.mention)
+                    data.set_author(name=name, url=user.avatar_url)
                     data.set_thumbnail(url=user.avatar_url)
                 else:
                     data.set_author(name=user.name)
