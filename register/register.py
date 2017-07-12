@@ -334,10 +334,9 @@ class Register:
     async def remove(self, ctx, user : discord.Member=None):
         """Remove the specified member from the registry"""
         
-        await self.bot.say("removed user")
-        #server = ctx.message.server
-        #if not user
-        #    user = ctx.message.author
+        server = ctx.message.server
+        if not user
+            user = ctx.message.author
         #if server.id not in self.usersArray:
         #    self.usersArray[server.id] = {}
         #if user.id not in self.usersArray[server.id]:
