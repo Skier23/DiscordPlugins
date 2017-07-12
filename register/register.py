@@ -46,7 +46,7 @@ class Register:
     async def _rem(self, ctx, user : discord.Member=None):
         """Remove the specified member from the registry"""
 		
-		
+		'''
         server = ctx.message.server
 		if user == None			
 			user = ctx.message.author
@@ -59,6 +59,7 @@ class Register:
 			#self.usersArray[server.id].remove(user.id) 
 			dataIO.save_json(self.profile, self.usersArray)
             await self.bot.say("removed user")
+			'''
         
     
     @commands.command(name="account", pass_context=True, invoke_without_command=True, no_pm=True)
