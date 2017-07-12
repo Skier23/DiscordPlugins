@@ -58,7 +58,7 @@ class Register:
             #self.usersArray[server.id][user.id] = {}
 			#self.usersArray[server.id].remove(user.id) 
 			dataIO.save_json(self.profile, self.usersArray)
-            await self.bot.say(embed=data)
+            await self.bot.say("removed user")
         
     
     @commands.command(name="account", pass_context=True, invoke_without_command=True, no_pm=True)
