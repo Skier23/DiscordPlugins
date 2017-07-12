@@ -42,7 +42,7 @@ class Register:
             await self.bot.say(embed=data)
 	@commands.command(name="remove", pass_context=True, invoke_without_command=True, no_pm=True)
     async def _rem(self, ctx, rockstarID : str):
-        """Sign up with your SocialClub name to join channels and drops"""
+        """Sign up with your SocialClub name to join channels"""
 		
 		
         server = ctx.message.server
