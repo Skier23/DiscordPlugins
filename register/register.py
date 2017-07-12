@@ -29,6 +29,7 @@ class Register:
                 if "SocialClub" in self.usersArray[server.id][user.id]:
                     #await self.bot.say("flag1")
                     #if self.usersArray[server.id][user.id]["SocialClub"] == rockstarID:
+                    pass
                     #    await self.bot.say("A user has already registered with this SocialClub. Try again.")
                     #    return
             self.usersArray[server.id][user.id] = {}
