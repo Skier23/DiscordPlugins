@@ -340,7 +340,9 @@ class Register:
         if server.id not in self.usersArray:
             self.usersArray[server.id] = {}
         if user.id not in self.usersArray[server.id]:
-            await self.bot.say("User is not registered")
+            data = discord.Embed(colour=user.colour)
+            data.add_field(name="Failure", value="{} is not registered.".format(user.mention))
+            await self.bot.say(embed=data)
         else:
             del self.usersArray[server.id][user.id]
             dataIO.save_json(self.profile, self.usersArray)
