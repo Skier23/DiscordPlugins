@@ -32,7 +32,7 @@ class Register:
             await self.bot.say(embed=data)
         else: 
             data = discord.Embed(colour=user.colour)
-            data.add_field(name="Error:warning:",value="Oops, it seems like you already have an account, {}.".format(user.mention))
+            data.add_field(name="Error:warning:",value="Oops, it seems like you already have an account flag1, {}.".format(user.mention))
             await self.bot.say(embed=data)
         
     
