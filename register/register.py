@@ -27,10 +27,10 @@ class Register:
         if user.id not in self.usersArray[server.id]:
             for key in self.usersArray[server.id]:
                 if "SocialClub" in self.usersArray[server.id][user.id]:
-                    await self.bot.say("flag1")
-                    if self.usersArray[server.id][user.id]["SocialClub"] == rockstarID:
-                        await self.bot.say("A user has already registered with this SocialClub. Try again.")
-                        #return
+                    #await self.bot.say("flag1")
+                    #if self.usersArray[server.id][user.id]["SocialClub"] == rockstarID:
+                    #    await self.bot.say("A user has already registered with this SocialClub. Try again.")
+                    #    return
             self.usersArray[server.id][user.id] = {}
             #self.usersArray[server.id][user.id].update({"SocialClub" : rockstarID})
             dataIO.save_json(self.profile, self.usersArray)
