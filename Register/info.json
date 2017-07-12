@@ -1,0 +1,13 @@
+
+{
+   "AUTHOR":"Skier",
+   "SHORT":"The Register Cog",
+   "DESCRIPTION":"Register cog to register with rockstarId.",
+   "DISABLED":false,
+   "NAME":"Register",
+   "TAGS":[
+      "Register",
+      "Profile"
+   ],
+   "INSTALL_MSG":"You just installed **Register.py**! \nRegister cog to register with rockstarId"
+}
