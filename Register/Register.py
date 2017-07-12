@@ -9,6 +9,7 @@ from .utils.chat_formatting import *
 class Register:
     """The Register Cog. Also will handle currency/reputation"""
 
+	
     def __init__(self, bot):
         self.bot = bot
         self.profile = "data/account/accounts.json"
