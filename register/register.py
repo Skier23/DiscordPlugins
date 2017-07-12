@@ -342,8 +342,7 @@ class Register:
         if user.id not in self.usersArray[server.id]:
             await self.bot.say("User is not registered")
         else:
-            self.usersArray[server.id][user.id] = {}
-            #self.usersArray[server.id].remove(user.id)
+            del self.usersArray[server.id][user.id]
             dataIO.save_json(self.profile, self.usersArray)
             await self.bot.say(type(self.usersArray))
 def check_folder():
