@@ -330,10 +330,6 @@ class Register:
             data = discord.Embed(colour=user.colour)
             data.add_field(name="Congrats!:sparkles:",value="You have set your Other to {}".format(other))
             await self.bot.say(embed=data)
-    @commands.command(name="test", pass_context=True, invoke_without_command=True, no_pm=True)
-    async def test(self, ctx, test)
-        """"Testing method"""
-        await self.bot.say("test")
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
