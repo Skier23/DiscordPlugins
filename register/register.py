@@ -42,11 +42,12 @@ class Register:
             await self.bot.say(embed=data)
         
     
+	'''
 	@commands.command(name="remove", pass_context=True, invoke_without_command=True, no_pm=True)
     async def _rem(self, ctx, user : discord.Member=None):
         """Remove the specified member from the registry"""
 		
-		'''
+		
         server = ctx.message.server
 		if user == None			
 			user = ctx.message.author
