@@ -44,7 +44,7 @@ class Register:
             data.add_field(name="Error:warning:",value="Oops, it seems like you already have an account, {}.".format(user.mention))
             await self.bot.say(embed=data)
     @commands.command(name="account", pass_context=True, invoke_without_command=True, no_pm=True)
-    async def _acc(self, ctx, user : discord.Member=Empty):
+    async def _acc(self, ctx, user : discord.Member=None):
         """Your/Others account"""
                     
         server = ctx.message.server
