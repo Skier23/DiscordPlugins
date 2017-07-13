@@ -40,6 +40,7 @@ class Register:
             data.add_field(name="Congrats!:sparkles:", value="You have officially created your account for **{}**, {}.".format(server, user.mention))
             role = discord.utils.get(server.roles, name="Member")
             await self.bot.add_roles(user, role)
+            await self.bot.server_voice_state(user, mute=False)
             await self.bot.say(embed=data)
         else: 
             data = discord.Embed(colour=user.colour)
@@ -139,6 +140,7 @@ class Register:
             data.add_field(name="Removed", value="You have removed {}'s record from the registrar.".format(user.mention))
             role = discord.utils.get(server.roles, name="Member")
             await self.bot.remove_roles(user, role)
+            await self.bot
             await self.bot.say(embed=data)
 def check_folder():
     if not os.path.exists("data/account"):
