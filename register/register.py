@@ -57,8 +57,8 @@ class Register:
             user = ctx.message.author
             if user.id in self.usersArray[server.id]:
                 data = discord.Embed(colour=user.colour)
-                inline = False
-                data.add_field(name="Discord:", value="{}".format(user.mention), inline)
+                boolValue = False
+                data.add_field(name="Discord:", value="{}".format(user.mention), inline=boolValue)
                 data.add_field(name="SocialClub:", value=self.usersArray[server.id][user.id]["SocialClub"])
                 if "Age" in self.usersArray[server.id][user.id]:
                     age = self.usersArray[server.id][user.id]["Age"]
