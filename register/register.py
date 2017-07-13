@@ -94,7 +94,6 @@ class Register:
                 else:
                     pass
                 if user.avatar_url:
-                    name = " ~ ".join((name, user.nick)) if user.nick else name
                     name = "{}".format(user.mention)
                     data.set_author(name=name, url=user.avatar_url)
                     data.set_thumbnail(url=user.avatar_url)
