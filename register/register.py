@@ -137,6 +137,8 @@ class Register:
             dataIO.save_json(self.profile, self.usersArray)
             data = discord.Embed(colour=user.colour)
             data.add_field(name="Removed", value="You have removed {}'s record from the registrar.".format(user.mention))
+            role = discord.utils.get(server.roles, name="Member")
+            await self.bot.delete_roles(user, role)
             await self.bot.say(embed=data)
 def check_folder():
     if not os.path.exists("data/account"):
