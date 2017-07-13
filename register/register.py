@@ -39,7 +39,7 @@ class Register:
             data = discord.Embed(colour=user.colour)
             data.add_field(name="Congrats!:sparkles:", value="You have officially created your account for **{}**, {}.".format(server, user.mention))
             role = discord.utils.get(server.roles, name="Member")
-            await client.add_roles(user, role)
+            await self.bot.add_roles(user, role)
             await self.bot.say(embed=data)
         else: 
             data = discord.Embed(colour=user.colour)
