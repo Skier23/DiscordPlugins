@@ -74,51 +74,15 @@ class Register:
         else:
             server = ctx.message.server
             if user.id in self.usersArray[server.id]:
-                data = discord.Embed(description="{}".format(server), colour=user.colour)
-                if "Age" in self.usersArray[server.id][user.id]:
-                    town = self.usersArray[server.id][user.id]["Age"]
-                    data.add_field(name="Age", value=town)
-                else:
-                    pass
-                if "Site" in self.usersArray[server.id][user.id]:
-                    site = self.usersArray[server.id][user.id]["Site"]
-                    data.add_field(name="Website:", value=site)
-                else:
-                    pass
+                data = discord.Embed(colour=user.colour)
+                boolValue = True
+                data.add_field(name="Discord:", value="{}".format(user.mention), inline=boolValue)
+                data.add_field(name="SocialClub:", value=self.usersArray[server.id][user.id]["SocialClub"])
                 if "About" in self.usersArray[server.id][user.id]:
                     about = self.usersArray[server.id][user.id]["About"]
                     data.add_field(name="About:", value=about)
-                else:
-                    pass
-                if "Gender" in self.usersArray[server.id][user.id]:
-                    gender = self.usersArray[server.id][user.id]["Gender"]
-                    data.add_field(name="Gender:", value=gender)
-                else:
-                    pass 
-                if "Job" in self.usersArray[server.id][user.id]:
-                    job = self.usersArray[server.id][user.id]["Job"]
-                    data.add_field(name="Profession:", value=job)
-                else:
-                    pass
-                if "Email" in self.usersArray[server.id][user.id]:
-                    email = self.usersArray[server.id][user.id]["Email"]
-                    data.add_field(name="Email Address:", value=email)
-                else:
-                    pass
-                if "Other" in self.usersArray[server.id][user.id]:
-                    other = self.usersArray[server.id][user.id]["Other"]
-                    data.add_field(name="Other:", value=other)
-                else:
-                    pass
                 if user.avatar_url:
-                    name = str(user)
-                    name = " ~ ".join((name, user.nick)) if user.nick else name
-                    name = "{}".format(user.mention)
-                    data.set_author(name=name, url=user.avatar_url)
                     data.set_thumbnail(url=user.avatar_url)
-                else:
-                    data.set_author(name=user.name)
-
                 await self.bot.say(embed=data)
             else:
                 data = discord.Embed(colour=user.colour)
