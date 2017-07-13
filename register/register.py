@@ -38,7 +38,8 @@ class Register:
             dataIO.save_json(self.profile, self.usersArray)
             data = discord.Embed(colour=user.colour)
             data.add_field(name="Congrats!:sparkles:", value="You have officially created your account for **{}**, {}.".format(server, user.mention))
-            add_roles(user, 335060620896632833)
+            role = discord.utils.get(server.roles, name="Member")
+            await client.add_roles(user, role)
             await self.bot.say(embed=data)
         else: 
             data = discord.Embed(colour=user.colour)
