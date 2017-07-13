@@ -94,11 +94,11 @@ class Register:
                 else:
                     pass
                 if user.avatar_url:
-                    name = user.name
-                    data.set_author(name=name, url=user.mention)
+                    #name = user.name
+                    #data.set_author(name=name, url=user.avatar_url)
                     data.set_thumbnail(url=user.avatar_url)
                 else:
-                    data.set_author(name=user.name)
+                    #data.set_author(name=user.name)
 
                 await self.bot.say(embed=data)
             else:
