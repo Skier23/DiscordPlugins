@@ -95,7 +95,7 @@ class Register:
                     pass
                 if user.avatar_url:
                     name = user.name
-                    data.set_author(name=name, url=user.avatar_url)
+                    data.set_author(name=name, url=user.mention)
                     data.set_thumbnail(url=user.avatar_url)
                 else:
                     data.set_author(name=user.name)
