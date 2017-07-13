@@ -142,8 +142,9 @@ class Register:
             await self.bot.remove_roles(user, role)
             await self.bot
             await self.bot.say(embed=data)
-    async def member_join(member):
+    async def member_join(self, member):
         await self.bot.say("user joined")
+        await self.bot.send_message("hello user")
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
