@@ -141,7 +141,7 @@ class Register:
             role = discord.utils.get(server.roles, name="Member")
             await self.bot.remove_roles(user, role)
             await self.bot.say(embed=data)
-    async def on_member_join(self, member):
+    async def member_join(self, member):
         await self.bot.say("user joined")
         await self.bot.send_message("hello user")
 def check_folder():
@@ -160,5 +160,5 @@ def setup(bot):
     check_folder()
     check_file()
     x = Register(bot)
-    bot.add_listener(x.on_member_join, "on_member_join")
+    bot.add_listener(x.member_join, "on_member_join")
     bot.add_cog(x)
