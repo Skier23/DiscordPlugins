@@ -141,9 +141,12 @@ class Register:
             role = discord.utils.get(server.roles, name="Member")
             await self.bot.remove_roles(user, role)
             await self.bot.say(embed=data)
-    async def member_join(self, member):
+    async def on_member_join(self, member):
         await self.bot.say("user joined")
         await self.bot.send_message("hello user")
+    async def on_member_remove(self, member):
+        await self.bot.say("user left")
+        await self.bot.send_message("bye user")    
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
@@ -159,6 +162,5 @@ def check_file():
 def setup(bot):
     check_folder()
     check_file()
-    x = Register(bot)
-    bot.add_listener(x.member_join, "on_member_join")
-    bot.add_cog(x)
+    n = Register(bot)
+    bot.add_cog(n)
