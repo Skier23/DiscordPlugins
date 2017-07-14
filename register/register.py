@@ -143,10 +143,10 @@ class Register:
             await self.bot.say(embed=data)
     async def on_member_join(self, member):
         await self.bot.say("user joined")
-        await self.bot.send_message("hello user")
+        await self.bot.send_message("hello user", member)
     async def on_member_remove(self, member):
         await self.bot.say("user left")
-        await self.bot.send_message("bye user")    
+        await self.bot.send_message("bye user", member)    
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
