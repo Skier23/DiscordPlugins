@@ -140,7 +140,6 @@ class Register:
             data.add_field(name="Removed", value="You have removed {}'s record from the registrar.".format(user.mention))
             role = discord.utils.get(server.roles, name="Member")
             await self.bot.remove_roles(user, role)
-            await self.bot
             await self.bot.say(embed=data)
     async def on_member_join(self, member):
         await self.bot.say("user joined")
