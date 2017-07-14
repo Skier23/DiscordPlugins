@@ -160,4 +160,6 @@ def check_file():
 def setup(bot):
     check_folder()
     check_file()
-    bot.add_cog(Register(bot))
+    x = Register(bot)
+    bot.add_listener(x.on_member_join, "on_member_join")
+    bot.add_cog(x)
