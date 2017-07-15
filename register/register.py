@@ -141,11 +141,6 @@ class Register:
             role = discord.utils.get(server.roles, name="Member")
             await self.bot.remove_roles(user, role)
             await self.bot.say(embed=data)
-    async def on_member_join(self, member):
-        server = member.server
-        await self.bot.send_message(member, "hello user")
-        if member.id not in self.usersArray[server.id]:
-            registerUser(self, member)
     async def registerUser(self, user : discord.Member):
         server = user.server
         data = discord.Embed(colour=user.colour)
@@ -165,8 +160,11 @@ class Register:
         elif str.lower(about) == "no":
             await self.bot.send_message(user, "That's okay. You can add this later if you'd like.")
             about = None
-        
-        
+    async def on_member_join(self, member):
+        server = member.server
+        await self.bot.send_message(member, "hello user")
+        if member.id not in self.usersArray[server.id]:
+            registerUser(self, member)
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
