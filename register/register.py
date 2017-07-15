@@ -144,22 +144,25 @@ class Register:
     async def registerUser(self, user : discord.Member):
         server = user.server
         data = discord.Embed(colour=user.colour)
-        data.add_field(name="Welcome to {} !:smiley:".format(server),value="Welcome to {} {}! \nPlease read #rules and #info. \nPlease register to the discord by entering your SocialClub name(Can not be changed!)")
+        data.add_field(name="Welcome to {} !:smiley:".format(server),value="Welcome to {} {}! \nPlease read #rules and #info. \nPlease register to the discord by entering your SocialClub name(Can not be changed!)".format(server, user.mention))
         await self.bot.send_message(user, embed=data)
         socialClub = await self.bot.wait_for_message(author=user, timeout=600)
-        if not socialClub:
+        socialClubStr = socialClub.content
+        if not socialClubStr:
             await self.bot.send_message(user, "Registration timed out. To register type [p]register")
             return
         data2 = discord.Embed(colour=user.colour)
         data2.add_field(name="Do you want to add some information about yourself? (Other users will be able to see this)",value="Enter whatever information you would like to include or enter \"no\" to not add this information.")
         await self.bot.send_message(user, embed=data2)
         about = await self.bot.wait_for_message(author=user, timeout=120)
-        if not about:
+        aboutStr = about.content
+        if not aboutStr:
             await self.bot.send_message(user, "About information left empty. You can change this later.")
-            about = None
-        elif str.lower(about) == "no":
+            aboutStr = None
+        elif str.lower(aboutStr) == "no":
             await self.bot.send_message(user, "That's okay. You can add this later if you'd like.")
-            about = None
+            aboutStr = None
+        
     async def on_member_join(self, member):
         server = member.server
         await self.bot.send_message(member, "hello user")
