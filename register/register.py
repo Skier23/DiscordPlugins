@@ -162,7 +162,6 @@ class Register:
         elif str.lower(aboutStr) == "no":
             await self.bot.send_message(user, "That's okay. You can add this later if you'd like.")
             aboutStr = None
-        
     async def on_member_join(self, member):
         server = member.server
         await self.bot.send_message(member, "hello user")
