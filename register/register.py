@@ -145,7 +145,7 @@ class Register:
         await self.bot.send_message(member, "hello user")
         if user.id not in self.usersArray[server.id]:
             registerUser(member)
-    def registerUser(self, user : discord.Member=None)
+    async def registerUser(self, user : discord.Member):
         server = user.server
         data = discord.Embed(colour=user.colour)
         data.add_field(name="Welcome to {} !:smiley:".format(server),value="Welcome to {} {}! \nPlease read #rules and #info. \nPlease register to the discord by entering your SocialClub name(Can not be changed!)")
