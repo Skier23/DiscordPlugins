@@ -164,7 +164,7 @@ class Register:
         server = member.server
         await self.bot.send_message(member, "hello user")
         if member.id not in self.usersArray[server.id]:
-            await self.registerUser(self, member)
+            await self.registerUser(member)
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
