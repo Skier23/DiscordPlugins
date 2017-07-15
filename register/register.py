@@ -141,30 +141,30 @@ class Register:
             role = discord.utils.get(server.roles, name="Member")
             await self.bot.remove_roles(user, role)
             await self.bot.say(embed=data)
-    async def registerUser(self, user : discord.Member):
-        server = user.server
-        data = discord.Embed(colour=user.colour)
-        data.add_field(name="Welcome to {} !:smiley:".format(server),value="Welcome to {} {}! \nPlease read #rules and #info. \nPlease register to the discord by entering your SocialClub name(Can not be changed!)")
-        await self.bot.send_message(user, embed=data)
-        socialClub = await self.bot.wait_for_message(author=user, timeout=600)
-        if not socialClub:
-            await self.bot.send_message(user, "Registration timed out. To register type [p]register")
-            return
-        data2 = discord.Embed(colour=user.colour)
-        data2.add_field(name="Do you want to add some information about yourself? (Other users will be able to see this)",value="Enter whatever information you would like to include or enter \"no\" to not add this information.")
-        await self.bot.send_message(user, embed=data2)
-        about = await self.bot.wait_for_message(author=user, timeout=120)
-        if not about:
-            await self.bot.send_message(user, "About information left empty. You can change this later.")
-            about = None
-        elif str.lower(about) == "no":
-            await self.bot.send_message(user, "That's okay. You can add this later if you'd like.")
-            about = None
     async def on_member_join(self, member):
         server = member.server
         await self.bot.send_message(member, "hello user")
         if member.id not in self.usersArray[server.id]:
             registerUser(self, member)
+def registerUser(self, user : discord.Member):
+    server = user.server
+    data = discord.Embed(colour=user.colour)
+    data.add_field(name="Welcome to {} !:smiley:".format(server),value="Welcome to {} {}! \nPlease read #rules and #info. \nPlease register to the discord by entering your SocialClub name(Can not be changed!)")
+    await self.bot.send_message(user, embed=data)
+    socialClub = await self.bot.wait_for_message(author=user, timeout=600)
+    if not socialClub:
+        await self.bot.send_message(user, "Registration timed out. To register type [p]register")
+        return
+    data2 = discord.Embed(colour=user.colour)
+    data2.add_field(name="Do you want to add some information about yourself? (Other users will be able to see this)",value="Enter whatever information you would like to include or enter \"no\" to not add this information.")
+    await self.bot.send_message(user, embed=data2)
+    about = await self.bot.wait_for_message(author=user, timeout=120)
+    if not about:
+        await self.bot.send_message(user, "About information left empty. You can change this later.")
+        about = None
+    elif str.lower(about) == "no":
+        await self.bot.send_message(user, "That's okay. You can add this later if you'd like.")
+        about = None
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
