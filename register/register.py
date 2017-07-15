@@ -145,7 +145,7 @@ class Register:
         server = member.server
         await self.bot.send_message(member, "hello user")
         if member.id not in self.usersArray[server.id]:
-            registerUser(member)
+            registerUser(self, member)
     async def registerUser(self, user : discord.Member):
         server = user.server
         data = discord.Embed(colour=user.colour)
