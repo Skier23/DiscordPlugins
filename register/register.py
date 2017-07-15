@@ -144,7 +144,7 @@ class Register:
     async def on_member_join(self, member):
         server = member.server
         await self.bot.send_message(member, "hello user")
-        if user.id not in self.usersArray[server.id]:
+        if member.id not in self.usersArray[server.id]:
             registerUser(member)
     async def registerUser(self, user : discord.Member):
         server = user.server
