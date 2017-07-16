@@ -144,8 +144,11 @@ class Register:
     async def registerUser(self, user : discord.Member):
         server = user.server
         data = discord.Embed(colour=user.colour)
-        data.add_field(name="Welcome to {} !:smiley:".format(server),value="Welcome to {} {}! \nPlease read #rules and #info. \nPlease register to the discord by replying with your SocialClub name(Can not be changed!)".format(server, user.mention))
+        data.add_field(name="Welcome to {} !:smiley:".format(server),value="Welcome to {} {}! \nPlease read #rules and #info.".format(server, user.mention))
         await self.bot.send_message(user, embed=data)
+        data3 = discord.Embed(color=user.colour)
+        data3.add_field(name="Please register.", value="Please register to the discord by replying with your SocialClub name(Can not be changed!)")
+        await self.bot.send_message(user, embed=data3)
         socialClub = await self.bot.wait_for_message(author=user, timeout=600)
         socialClubStr = socialClub.content
         if not socialClubStr:
