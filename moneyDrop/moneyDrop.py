@@ -31,7 +31,7 @@ class moneyDrop:
         self.drops[member.id] = {}
         self.schedule_drop_close(member, 5)   
         self.drops[member.id].update({"dropstate": dropState.PICKING})
-        channel = server.get_channel(self.dropChannelId)
+        channel = server.get_channel(337035351862542346)
         await self.bot.send_message(channel, "Testing message")
     def close_drop(self, user: discord.Member):
         print("test1inconsole")
