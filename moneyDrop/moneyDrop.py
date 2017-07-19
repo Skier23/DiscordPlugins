@@ -18,7 +18,7 @@ class moneyDrop:
     def __init__(self, bot):
         self.bot = bot  
         self.drops = {}
-        self.dropChannelId = "337035351862542346""
+        self.dropChannelId = "337035351862542346"
     def schedule_drop_close(self, member, delay: int):
         new_task = self.bot.loop.call_later(
             delay, self.close_drop, member)
