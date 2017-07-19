@@ -33,7 +33,7 @@ class moneyDrop:
         self.drops[member.id].update({"dropstate": dropState.PICKING})
         channel = server.get_channel(self.dropChannelId)
         await self.bot.send_message(channel, "Testing message")
-        developers = self.get_users_with_role(server, server.role_hierarchy()[0])
+        developers = self.get_users_with_role(server, server.role_hierarchy[0])
         for user in developers:
             await self.bot.send_message(user, "this is a test")
     def close_drop(self, user: discord.Member):
