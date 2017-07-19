@@ -26,9 +26,11 @@ class moneyDrop:
             if (not member.bot) and self._member_has_role(member, role):
                 roled.append(member)
         return roled
-    async def _mark_as_closed(self, message: str, user: discord.Member):
+    def _mark_as_closed(self, message: str, user: discord.Member):
         print("test1inconsole")
-        await self.bot.send_message(user, "test")
+        await self.sendMessage("test", user)
+    async def sendMessage(self, message: str, user: discord.Member)
+        pass
 def setup(bot):
     n = moneyDrop(bot)
     bot.add_cog(n)
