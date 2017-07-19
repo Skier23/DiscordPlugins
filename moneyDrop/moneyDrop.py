@@ -12,7 +12,7 @@ class moneyDrop:
 
     def __init__(self, bot):
         self.bot = bot    
-    async def _schedule_close(self, member, survey_id: str, delay: int):
+    def _schedule_close(self, member, survey_id: str, delay: int):
         new_handle = self.bot.loop.call_later(
             delay, self._mark_as_closed, survey_id, member)
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
