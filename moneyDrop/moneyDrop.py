@@ -17,7 +17,7 @@ class moneyDrop:
             delay, self._mark_as_closed, survey_id)
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
     async def startDrop(self, ctx):
-        await self._schedule_close(self, "test", "test1", 5)   
+        await self._schedule_close("test", "test1", 5)   
     def _get_users_with_role(self, server: discord.Server,
                              role: discord.Role) -> List[discord.User]:
         roled = []
