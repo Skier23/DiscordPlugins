@@ -4,6 +4,7 @@ from .utils.dataIO import dataIO
 from .utils import checks
 from __main__ import send_cmd_help
 import os
+from typing import Any, Dict, List
 from .utils.chat_formatting import *
 
 class moneyDrop:
