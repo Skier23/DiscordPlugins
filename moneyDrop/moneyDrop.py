@@ -28,7 +28,7 @@ class moneyDrop:
         return roled
     def _mark_as_closed(self, message: str, user: discord.Member):
         print("test1inconsole")
-        bot.loop.create_task(self.bot.send_message(user, "test"))
+        self.bot.loop.create_task(self.bot.send_message(user, "test"))
         #await self.bot.send_message(user, "test")
 def setup(bot):
     n = moneyDrop(bot)
