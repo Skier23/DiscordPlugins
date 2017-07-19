@@ -13,9 +13,7 @@ class moneyDrop:
         self.bot = bot    
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
     async def startDrop(self, ctx):
-        
-        
-        
+        return   
     def _get_users_with_role(self, server: discord.Server,
                              role: discord.Role) -> List[discord.User]:
         roled = []
