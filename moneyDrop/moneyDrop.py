@@ -12,7 +12,7 @@ class moneyDrop:
 
     def __init__(self, bot):
         self.bot = bot    
-    def _schedule_close(self, member, survey_id: str, delay: int):
+    async def _schedule_close(self, member, survey_id: str, delay: int):
         new_handle = self.bot.loop.call_later(
             delay, self._mark_as_closed, survey_id, member)
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
@@ -26,7 +26,7 @@ class moneyDrop:
             if (not member.bot) and self._member_has_role(member, role):
                 roled.append(member)
         return roled
-    def _mark_as_closed(self, message: str, user: discord.Member):
+    async def _mark_as_closed(self, message: str, user: discord.Member):
         print("test1inconsole")
         await self.bot.send_message(user, "test")
 def setup(bot):
