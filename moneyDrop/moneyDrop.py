@@ -18,7 +18,7 @@ class moneyDrop:
     def __init__(self, bot):
         self.bot = bot  
         self.drops = {}
-        self.dropChannelId = 337035351862542346
+        self.dropChannelId = "337035351862542346""
     def schedule_drop_close(self, member, delay: int):
         new_task = self.bot.loop.call_later(
             delay, self.close_drop, member)
@@ -31,12 +31,15 @@ class moneyDrop:
         self.drops[member.id] = {}
         self.schedule_drop_close(member, 5)   
         self.drops[member.id].update({"dropstate": dropState.PICKING})
-        channel = server.get_channel("337035351862542346")
+        channel = server.get_channel(self.dropChannelId)
         await self.bot.send_message(channel, "Testing message")
+        developers = get_users_with_role(server, server.role_hierarchy()[0])
+        for user in developers:
+            await self.bot.send_message(user, "this is a test")
     def close_drop(self, user: discord.Member):
         print("test1inconsole")
         #self.bot.loop.create_task(self.bot.send_message(user, "test"))
-    def _get_users_with_role(self, server: discord.Server,
+    def get_users_with_role(self, server: discord.Server,
                                  role: discord.Role) -> List[discord.User]:
             roled = []
             for member in server.members:
