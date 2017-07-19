@@ -1,0 +1,13 @@
+
+{
+   "AUTHOR":"Skier",
+   "SHORT":"Cog to get users for a money drop",
+   "DESCRIPTION":"Starts a drop and after the drop period is over, selects from the entered users.",
+   "DISABLED":false,
+   "NAME":"moneyDrop",
+   "TAGS":[
+      "MoneyDrop",
+      "GTA"
+   ],
+   "INSTALL_MSG":"You just installed **moneyDrop.py**! \nA cog to select from users that enter for an event"
+}
