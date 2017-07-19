@@ -26,6 +26,7 @@ class moneyDrop:
                 roled.append(member)
         return roled
     def _mark_as_closed(self, message: str, user: discord.Member):
+        print("test1inconsole")
         await self.bot.send_message(user, message)
 def setup(bot):
     n = moneyDrop(bot)
