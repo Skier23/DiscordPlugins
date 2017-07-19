@@ -46,6 +46,8 @@ class moneyDrop:
                 if (not member.bot) and self._member_has_role(member, role):
                     roled.append(member)
             return roled
+    def _member_has_role(self, member: discord.Member, role: discord.Role):
+        return role in member.roles
 def setup(bot):
     n = moneyDrop(bot)
     bot.add_cog(n)
