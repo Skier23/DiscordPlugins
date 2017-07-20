@@ -32,7 +32,11 @@ class moneyDrop:
         self.schedule_drop_close(member, 5)   
         self.drops[member.id].update({"dropstate": dropState.PICKING})
         channel = server.get_channel(self.dropChannelId)
-        await self.bot.send_message(channel, "Testing message")
+        data = discord.Embed(colour=discord.Colour.green())
+        data.add_field(name="Drop Alert", value="{} has started a drop!".format(member.mention))
+        data.add_field(name="Drop Info", value="There are {} left to enter the drop. \n{} users have entered the drop so far".format(member.mention, member.mention))
+        data.add_field(name="Enter the drop", value="Message me [p]enter {}".format(member.name))
+        await self.bot.send_message(channel, embed = data)
         developers = self.get_users_with_role(server, server.role_hierarchy[0])
         for user in developers:
             await self.bot.send_message(user, "this is a test")
