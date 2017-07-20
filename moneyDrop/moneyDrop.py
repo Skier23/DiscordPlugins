@@ -36,7 +36,7 @@ class moneyDrop:
         boolValue = False
         data.add_field(name="Drop Alert", value="{} has started a drop!".format(member.mention), inline=boolValue)
         data.add_field(name="Drop Info", value="There are {} left to enter the drop. \n{} users have entered the drop so far".format(member.mention, member.mention), inline=boolValue)
-        data.add_field(name="Enter the drop", value="Message me [p]enter {}".format(member.name), inline=boolValue)
+        data.add_field(name="Enter the drop", value="Message {} [p]enter {}".format(self.bot.mention ,member.name), inline=boolValue)
         await self.bot.send_message(channel, embed = data)
         developers = self.get_users_with_role(server, server.role_hierarchy[0])
         for user in developers:
