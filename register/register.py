@@ -36,7 +36,7 @@ class Register:
             self.usersArray[server.id][user.id] = {}
             self.usersArray[server.id][user.id].update({"SocialClub" : rockstarID})
             dataIO.save_json(self.profile, self.usersArray)
-            data = discord.Embed(colour=user.colour)
+            data = discord.Embed(colour=user.colour, inline=False)
             data.add_field(name="Congrats!:sparkles:", value="You have officially created your account for **{}**, {}.".format(server, user.mention))
             role = discord.utils.get(server.roles, name="Member")
             await self.bot.add_roles(user, role)
