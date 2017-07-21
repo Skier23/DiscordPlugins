@@ -29,7 +29,7 @@ class moneyDrop:
         server = ctx.message.server
         print("starting drop")
         self.drops[member.id] = {}
-        self.schedule_drop_close(member, 5)   
+        self.schedule_drop_close(member, 30)   
         self.drops[member.id].update({"dropstate": dropState.PICKING})
         channel = server.get_channel(self.dropChannelId)
         data = discord.Embed(colour=discord.Colour.green())
