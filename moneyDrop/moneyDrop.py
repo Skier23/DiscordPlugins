@@ -41,6 +41,32 @@ class moneyDrop:
         developers = self.get_users_with_role(server, server.role_hierarchy[0])
         for user in developers:
             await self.bot.send_message(user, "this is a test")
+        players = []
+        self.drops[member.id].update({"enteredplayers": players})
+    @commands.command(name="enter", pass_context=True, invoke_without_command=True)
+    async def enterDrop(self, ctx, dropper: discord.Member):
+        user = ctx.message.author
+        if not ctx.message.channel.is_private:
+            await self.bot.send_message(user, "This command can only be used in DM's")
+            return
+        if dropper not in self.drops:
+            await self.bot.send_message(user, "It does not appear this person is dropping! \nPlease make sure you spelled their name correctly if they are currently dropping.")
+            return
+        if dropper in self.drops:
+            if self.drops[dropper.id]["dropstate"] == dropState.INACTIVE:
+                await self.bot.send_message(user, "This dropper is not dropping right now!")
+                return 
+            elif self.drops[dropper.id]["dropstate"] == dropState.ACTIVE:
+                await self.bot.send_message(user, "This drop has already started and it is too late to join now!")
+                return 
+            elif self.drops[dropper.id]["dropstate"] == dropState.PICKING:
+                players = self.drops[dropper.id]["enteredplayers"]
+                if user.id in players:
+                    await self.bot.send_message(user, "You already entered in this drop!")
+                    return
+                players.append(user.id)
+                self.drops[dropper.id].update({"enteredplayers": players})
+                await self.bot.send_message(user, "Congrats! :sparkles: \n You have entered into the drop. You will receive a pm notifying you if you are accepted or not.")         
     def close_drop(self, user: discord.Member):
         print("test1inconsole")
         #self.bot.loop.create_task(self.bot.send_message(user, "test"))
