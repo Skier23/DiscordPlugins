@@ -49,10 +49,10 @@ class moneyDrop:
         if not ctx.message.channel.is_private:
             await self.bot.send_message(user, "This command can only be used in DM's")
             return
-        if dropper not in self.drops:
+        if dropper.id not in self.drops:
             await self.bot.send_message(user, "It does not appear this person is dropping! \nPlease make sure you spelled their name correctly if they are currently dropping.")
             return
-        if dropper in self.drops:
+        if dropper.id in self.drops:
             if self.drops[dropper.id]["dropstate"] == dropState.INACTIVE:
                 await self.bot.send_message(user, "This dropper is not dropping right now!")
                 return 
