@@ -76,6 +76,8 @@ class moneyDrop:
             bot.loop.create_task(self.bot.send_message(thisMember, "Congrats you have been accepted to the drop!"))
     def random_select(self, entPlayers: List, numOfPlayers):
         playersSize = len(entPlayers)
+        if playersSize < numOfPlayers:
+            numOfPlayers = playerSize
         randomPlayers = random.sample(range(playersSize), numOfPlayers)
         randomPlayers[:] = [entPlayers[i] for i in randomPlayers]
         return randomPlayers
