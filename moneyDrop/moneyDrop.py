@@ -41,7 +41,7 @@ class moneyDrop:
         developers = self.get_users_with_role(server, server.role_hierarchy[0])
         for user in developers:
             await self.bot.send_message(user, "this is a test")
-        self.schedule_drop_close(member, 30, 5, server)   
+        self.schedule_drop_close(member, 30, 1, server)   
         players = []
         self.drops[member.id].update({"enteredplayers": players})
     @commands.command(name="enter", pass_context=True, invoke_without_command=True)
@@ -74,6 +74,10 @@ class moneyDrop:
         for id in selectedPlayers:
             thisMember = server.get_member(id)
             self.bot.loop.create_task(self.bot.send_message(thisMember, "Congrats you have been accepted to the drop!"))
+        for id in self.drops[user.id]["enteredplayers"]:
+            if id not in selectedPlayers:
+                thisMember = server.get_member(id)
+                self.bot.loop.create_task(self.bot.send_message(thisMember, "Unfortunately you have not been accepted to this drop. Try again next time."))
     def random_select(self, entPlayers: List, numOfPlayers):
         playersSize = len(entPlayers)
         if playersSize < numOfPlayers:
