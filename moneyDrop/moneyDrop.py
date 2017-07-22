@@ -7,6 +7,7 @@ import os
 from typing import Any, Dict, List
 from .utils.chat_formatting import *
 from enum import Enum
+import random
 
 class dropState(Enum):
     INACTIVE = 1
