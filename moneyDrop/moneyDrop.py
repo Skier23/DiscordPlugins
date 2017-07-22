@@ -77,7 +77,7 @@ class moneyDrop:
     def random_select(self, entPlayers: List, numOfPlayers):
         playersSize = len(entPlayers)
         if playersSize < numOfPlayers:
-            numOfPlayers = playerSize
+            numOfPlayers = playersSize
         randomPlayers = random.sample(range(playersSize), numOfPlayers)
         randomPlayers[:] = [entPlayers[i] for i in randomPlayers]
         return randomPlayers
