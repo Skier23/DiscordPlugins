@@ -69,7 +69,7 @@ class moneyDrop:
                 await self.bot.send_message(user, "Congrats! :sparkles: \n You have entered into the drop. You will receive a pm notifying you if you are accepted or not.")         
     def close_drop(self, user: discord.Member, playersToPick, server):
         self.drops[user.id].update({"dropstate": dropState.ACTIVE})
-        selectedPlayers = random_select(self.drops[user.id]["enteredplayers"], playersToPick)
+        selectedPlayers = self.random_select(self.drops[user.id]["enteredplayers"], playersToPick)
         for id in selectedPlayers:
             thisMember = server.get_member(id)
             bot.loop.create_task(self.bot.send_message(thisMember, "Congrats you have been accepted to the drop!"))
