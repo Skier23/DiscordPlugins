@@ -19,9 +19,9 @@ class moneyDrop:
         self.bot = bot  
         self.drops = {}
         self.dropChannelId = "337035351862542346"
-    def schedule_drop_close(self, member, delay: int):
+    def schedule_drop_close(self, member, delay: int, playersToPick, server):
         new_task = self.bot.loop.call_later(
-            delay, self.close_drop, member)
+            delay, self.close_drop, member, playersToPick, server)
         self.drops[member.id].update({"task": new_task})
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
     async def startDrop(self, ctx):
@@ -29,7 +29,6 @@ class moneyDrop:
         server = ctx.message.server
         print("starting drop")
         self.drops[member.id] = {}
-        self.schedule_drop_close(member, 30)   
         self.drops[member.id].update({"dropstate": dropState.PICKING})
         channel = server.get_channel(self.dropChannelId)
         data = discord.Embed(colour=discord.Colour.green())
@@ -41,6 +40,7 @@ class moneyDrop:
         developers = self.get_users_with_role(server, server.role_hierarchy[0])
         for user in developers:
             await self.bot.send_message(user, "this is a test")
+        self.schedule_drop_close(member, 30, 5, server)   
         players = []
         self.drops[member.id].update({"enteredplayers": players})
     @commands.command(name="enter", pass_context=True, invoke_without_command=True)
@@ -67,9 +67,17 @@ class moneyDrop:
                 players.append(user.id)
                 self.drops[dropper.id].update({"enteredplayers": players})
                 await self.bot.send_message(user, "Congrats! :sparkles: \n You have entered into the drop. You will receive a pm notifying you if you are accepted or not.")         
-    def close_drop(self, user: discord.Member):
-        print("test1inconsole")
-        #self.bot.loop.create_task(self.bot.send_message(user, "test"))
+    def close_drop(self, user: discord.Member, playersToPick, server):
+        self.drops[user.id].update({"dropstate": dropState.Active})
+        selectedPlayers = random_select(self.drops[user.id]["enteredplayers"], playersToPick)
+        for id in selectedPlayers:
+            thisMember = server.get_member(id)
+            bot.loop.create_task(self.bot.send_message(thisMember, "Congrats you have been accepted to the drop!"))
+    def random_select(self, entPlayers: List, numOfPlayers)
+        playersSize = len(entPlayers)
+        randomPlayers = random.sample(range(playersSize), numOfPlayers)
+        randomPlayers[:] = [entPlayers[i] for i in randomPlayers]
+        return randomPlayers
     def get_users_with_role(self, server: discord.Server,
                                  role: discord.Role) -> List[discord.User]:
             roled = []
