@@ -25,7 +25,7 @@ class moneyDrop:
         #new_task = self.bot.loop.call_later(
         #    delay, self.close_drop, member, playersToPick, server)
         #self.drops[member.id].update({"task": new_task})
-        asyncio.sleep(delay)
+        await asyncio.sleep(delay)
         await self.close_drop(member, playersToPick, server)
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
     async def startDrop(self, ctx):
@@ -104,7 +104,7 @@ class moneyDrop:
         if (self.drops[member.id]["timeleft"] - 30) >= 0:   
             #self.bot.loop.call_later(
             #    delay, self.update_delay_msg, member, message)
-            asyncio.sleep(delay)
+            await asyncio.sleep(delay)
             await self.update_delay_msg(member, message)
     async def update_delay_msg(self, member: discord.Member, message):
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timeleft"] - 30})
