@@ -74,7 +74,7 @@ class moneyDrop:
                 players.append(user.id)
                 self.drops[dropper.id].update({"enteredplayers": players})
                 await self.bot.send_message(user, "You have entered into the drop. You will receive a pm notifying you if you are accepted or not.") 
-                self.update_msg(dropper, self.drops[dropper.id]["message"])
+                await self.update_msg(dropper, self.drops[dropper.id]["message"])
     async def close_drop(self, user: discord.Member, playersToPick, server):
         print("drop close")
         self.drops[user.id].update({"dropstate": dropState.ACTIVE})
