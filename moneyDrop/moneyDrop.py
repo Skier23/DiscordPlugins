@@ -104,6 +104,7 @@ class moneyDrop:
         if (self.drops[member.id]["timeleft"] - 30) >= 0:   
             #self.bot.loop.call_later(
             #    delay, self.update_delay_msg, member, message)
+            print("flag 1")
             await asyncio.sleep(delay)
             await self.update_delay_msg(member, message)
     async def update_delay_msg(self, member: discord.Member, message):
