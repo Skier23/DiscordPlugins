@@ -34,7 +34,7 @@ class moneyDrop:
         players = []
         self.drops[member.id].update({"enteredplayers": players})
         self.drops[member.id].update({"timetoenter": 30})
-        self.drops[member.id].update({"timeleft": self.drops[member.id]["timeToEnter"]})
+        self.drops[member.id].update({"timeleft": self.drops[member.id]["timetoenter"]})
         channel = server.get_channel(self.dropChannelId)
         data = self.msg_builder(member)
         self.drops[member.id].update({"message": await self.bot.send_message(channel, embed = data)})
