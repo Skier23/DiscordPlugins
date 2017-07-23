@@ -74,7 +74,7 @@ class moneyDrop:
     @commands.command(name="enter", pass_context=True, invoke_without_command=True)
     async def enterDrop(self, ctx, dropper: discord.Member):
         user = ctx.message.author
-        account = self.bot.get_cog("Register").register
+        account = self.bot.get_cog("register")
         if not ctx.message.channel.is_private:
             await self.bot.send_message(user, "This command can only be used in DM's")
             return
@@ -112,7 +112,7 @@ class moneyDrop:
             if id not in selectedPlayers:
                 thisMember = server.get_member(id)
                 await self.bot.send_message(thisMember, "Unfortunately you have not been accepted to this drop. Try again next time.")
-        account = self.bot.get_cog("Register").register
+        account = self.bot.get_cog("register")
         counter = 1
         socialClubs = "```Social Club names:\n"
         for id in selectedPlayers:
