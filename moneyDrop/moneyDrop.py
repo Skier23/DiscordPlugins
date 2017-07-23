@@ -145,7 +145,7 @@ class moneyDrop:
     async def end_drop(self, user: discord.Member):
         if self.drops[user.id]["dropstate"] is not dropState.ACTIVE:
             return
-        role = discord.utils.get(server.roles, name="Drop")
+        role = discord.utils.get(user.server.roles, name="Drop")
         for id in self.drops[user.id]["selectedplayers"]:
             thisMember = server.get_member(id)
             await self.bot.send_message(thisMember, "This drop is now over.")
