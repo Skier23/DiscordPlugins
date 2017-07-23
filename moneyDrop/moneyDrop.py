@@ -31,12 +31,32 @@ class moneyDrop:
     async def startDrop(self, ctx):
         member = ctx.message.author
         server = ctx.message.server
+        channel1 = ctx.message.channel    
         print("starting drop")
         self.drops[member.id] = {}
         self.drops[member.id].update({"dropstate": dropState.PICKING})
         players = []
         self.drops[member.id].update({"enteredplayers": players})
-        self.drops[member.id].update({"timetoenter": 60})
+        await self.bot.send_message(channel1, "How many users would you like to accept for the drop (2-20)?")
+        amountOfPlayers = await self.bot.wait_for_message(author=member, channel=channel1)
+        if not str.isnumeric(amountOfPlayers):
+            await self.bot.send_message(channel1, "Try again but next time enter a number you dummy!")
+            return
+        playersInt = int(amountOfPlayers)
+        if not playersInt >= 2 and playersInt <= 20:
+            await self.bot.send_message(channel1, "Try again but next time enter a number between 2 and 20 you dummy!")
+            return
+        self.drops[member.id].update({"numplayers": playersInt})
+        await self.bot.send_message(channel1, "How many minutes would you like the drop to be open for (3-10)?")
+        minutes = await self.bot.wait_for_message(author=member, channel=channel1)
+        if not str.isnumeric(minutes):
+            await self.bot.send_message(channel1, "Try again but next time enter a number you dummy!")
+            return
+        minutesInt = int(minutes)
+        if not minutesInt >= 3 and playersInt <= 10:
+            await self.bot.send_message(channel1, "Try again but next time enter a number between 3 and 10 you dummy!")
+            return
+        self.drops[member.id].update({"timetoenter": 60 * minutesInt})
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timetoenter"]})
         channel = server.get_channel(self.dropChannelId)
         data = self.msg_builder(member)
@@ -48,7 +68,7 @@ class moneyDrop:
         data2.add_field(name="Enter the drop", value="Reply with \"!enter {}\" to enter the drop.".format(member.name), inline=boolValue)
         for user in developers:
             await self.bot.send_message(user, embed=data2)
-        await asyncio.gather(self.schedule_update(member, self.drops[member.id]["message"], 30), self.schedule_drop_close(member, self.drops[member.id]["timetoenter"], 1, server))
+        await asyncio.gather(self.schedule_update(member, self.drops[member.id]["message"], 30), self.schedule_drop_close(member, self.drops[member.id]["timetoenter"], self.drops[member.id]["numplayers"], server))
     @commands.command(name="enter", pass_context=True, invoke_without_command=True)
     async def enterDrop(self, ctx, dropper: discord.Member):
         user = ctx.message.author
@@ -96,11 +116,11 @@ class moneyDrop:
         data = discord.Embed(colour=discord.Colour.green())
         boolValue = False
         if self.drops[member.id]["timeleft"] != 0:
-            data.add_field(name="Drop Alert", value="{} has started a drop!".format(member.mention), inline=boolValue)
+            data.add_field(name="Drop Alert", value="{} has started a drop for {} players!".format(member.mention, self.drops[member.id]["numplayers"]), inline=boolValue)
             data.add_field(name="Drop Info", value="There are {} left to enter the drop. \n{} users have entered the drop so far.".format(self.sec_to_min(self.drops[member.id]["timeleft"]), len(self.drops[member.id]["enteredplayers"])), inline=boolValue)
             data.add_field(name="Enter the drop", value="Message {} \"!enter {}\".".format(self.bot.user.mention ,member.name), inline=boolValue)
         else:
-            data.add_field(name="Ended Drop Alert", value="{} did a drop!".format(member.mention), inline=boolValue)
+            data.add_field(name="Ended Drop Alert", value="{} did a drop for {} players!".format(member.mention, self.drops[member.id]["numplayers"]), inline=boolValue)
             data.add_field(name="Drop Info", value="This drop has ended. \n{} users entered the drop.".format(len(self.drops[member.id]["enteredplayers"])), inline=boolValue)
         return data
     async def schedule_update(self, member, message, delay):
