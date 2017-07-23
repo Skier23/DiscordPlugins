@@ -67,8 +67,7 @@ class moneyDrop:
         channel = server.get_channel(self.dropChannelId)
         data = self.msg_builder(member)
         self.drops[member.id].update({"message": await self.bot.send_message(channel, embed = data)})
-        if role is None:
-            role = discord.utils.get(server.roles, name="Member")
+        role = discord.utils.get(server.roles, name="Member")
         developers = self.get_users_with_role(server, role)
         data2 = discord.Embed(colour=discord.Colour.green())
         boolValue = False
