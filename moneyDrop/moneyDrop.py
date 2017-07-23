@@ -90,7 +90,8 @@ class moneyDrop:
                 return 
             elif self.drops[dropper.id]["dropstate"] == dropState.PICKING:
                 players = self.drops[dropper.id]["enteredplayers"]
-                if not await account.registered(user, ctx.message.server)
+                registered = await account.registered(user, ctx.message.server)
+                if not registered:
                     await self.bot.send_message(user, "You need to register before you can enter drops!")
                     return
                 if user.id in players:
