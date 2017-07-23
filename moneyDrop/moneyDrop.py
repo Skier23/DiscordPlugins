@@ -91,7 +91,7 @@ class moneyDrop:
         data = discord.Embed(colour=discord.Colour.green())
         boolValue = False
         data.add_field(name="Drop Alert", value="{} has started a drop!".format(member.mention), inline=boolValue)
-        data.add_field(name="Drop Info", value="There are {} left to enter the drop. \n{} users have entered the drop so far.".format(self.drops[member.id]["timeleft"]), len(self.drops[member.id]["enteredplayers"]), inline=boolValue)
+        data.add_field(name="Drop Info", value="There are {} left to enter the drop. \n{} users have entered the drop so far.".format(self.drops[member.id]["timeleft"], len(self.drops[member.id]["enteredplayers"])), inline=boolValue)
         data.add_field(name="Enter the drop", value="Message {} \"!enter {}\".".format(self.bot.user.mention ,member.name), inline=boolValue)
         return data
     def schedule_update(self, member, message, delay):
