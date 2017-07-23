@@ -24,7 +24,6 @@ class moneyDrop:
         new_task = self.bot.loop.call_later(
             delay, self.close_drop, member, playersToPick, server)
         self.drops[member.id].update({"task": new_task})
-        
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
     async def startDrop(self, ctx):
         member = ctx.message.author
@@ -47,6 +46,7 @@ class moneyDrop:
         for user in developers:
             await self.bot.send_message(user, embed=data2)
         self.schedule_drop_close(member, self.drops[member.id]["timetoenter"], 1, server)   
+        self.schedule_update(member, self.drops[member.id]["message"], 30)
     @commands.command(name="enter", pass_context=True, invoke_without_command=True)
     async def enterDrop(self, ctx, dropper: discord.Member):
         user = ctx.message.author
