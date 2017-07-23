@@ -35,6 +35,7 @@ class moneyDrop:
         role = discord.utils.get(server.roles, name="Dropper")
         if role not in member.roles:
             await self.bot.send_message(member, "You do not have permission")
+            return
         print("starting drop")
         self.drops[member.id] = {}
         self.drops[member.id].update({"dropstate": dropState.PICKING})
@@ -140,6 +141,7 @@ class moneyDrop:
         role = discord.utils.get(server.roles, name="Dropper")
         if role not in dropper.roles:
             await self.bot.send_message(member, "You do not have permission")
+            return
         if dropper.id not in self.drops:
             await self.bot.send_message(dropper, "You are not dropping")
             return
