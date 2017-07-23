@@ -147,7 +147,7 @@ class moneyDrop:
             return
         role = discord.utils.get(user.server.roles, name="Drop")
         for id in self.drops[user.id]["selectedplayers"]:
-            thisMember = server.get_member(id)
+            thisMember = user.server.get_member(id)
             await self.bot.send_message(thisMember, "This drop is now over.")
             await self.bot.send_message(thisMember, "Thanks for participating!")
             await self.bot.remove_roles(user, role)
@@ -174,11 +174,11 @@ class moneyDrop:
         if (self.drops[member.id]["timeleft"] - 30) >= 0:   
             #self.bot.loop.call_later(
             #    delay, self.update_delay_msg, member, message)
-            print("flag 1")
+            #print("flag 1")
             await asyncio.sleep(delay)
             await self.update_delay_msg(member, message)
     async def update_delay_msg(self, member: discord.Member, message):
-        print("update delay")
+        #print("update delay")
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timeleft"] - 30})
         await self.update_msg(member, message)
         await self.schedule_update(member, message, 30)
