@@ -73,6 +73,7 @@ class moneyDrop:
                 await self.bot.send_message(user, "You have entered into the drop. You will receive a pm notifying you if you are accepted or not.") 
                 self.update_msg(dropper, self.drops[dropper.id]["message"])
     def close_drop(self, user: discord.Member, playersToPick, server):
+        print("drop close")
         self.drops[user.id].update({"dropstate": dropState.ACTIVE})
         selectedPlayers = self.random_select(self.drops[user.id]["enteredplayers"], playersToPick)
         for id in selectedPlayers:
@@ -102,7 +103,7 @@ class moneyDrop:
                 delay, self.update_delay_msg, member, message)
     def update_delay_msg(self, member: discord.Member, message):
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timeleft"] - 30})
-        update_msg(member, message)
+        self.update_msg(member, message)
         self.schedule_update(member, message, 30)
     def update_msg(self, member: discord.Member, message):
         editedMessage = self.bot.loop.create_task(self.bot.edit_message(message, embed=self.msg_builder(member)))
