@@ -108,8 +108,8 @@ class moneyDrop:
             await self.update_delay_msg(member, message)
     async def update_delay_msg(self, member: discord.Member, message):
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timeleft"] - 30})
-        self.update_msg(member, message)
-        self.schedule_update(member, message, 30)
+        await self.update_msg(member, message)
+        await self.schedule_update(member, message, 30)
     async def update_msg(self, member: discord.Member, message):
         editedMessage = await self.bot.edit_message(message, embed=self.msg_builder(member))
         self.drops[member.id].update({"message": editedMessage})
