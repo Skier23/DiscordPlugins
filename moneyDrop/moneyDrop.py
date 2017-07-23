@@ -28,7 +28,7 @@ class moneyDrop:
         await asyncio.sleep(delay)
         await self.close_drop(member, playersToPick, server)
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True, no_pm=True)
-    async def startDrop(self, ctx):
+    async def startDrop(self, ctx, role : discord.Role=None):
         member = ctx.message.author
         server = ctx.message.server
         channel1 = ctx.message.channel    
@@ -63,7 +63,9 @@ class moneyDrop:
         channel = server.get_channel(self.dropChannelId)
         data = self.msg_builder(member)
         self.drops[member.id].update({"message": await self.bot.send_message(channel, embed = data)})
-        developers = self.get_users_with_role(server, server.role_hierarchy[0])
+        if not role
+            role = server.role_hierarchy[0]
+        developers = self.get_users_with_role(server, role)
         data2 = discord.Embed(colour=discord.Colour.green())
         boolValue = False
         data2.add_field(name="Drop Alert", value="{} has started a drop!".format(member.mention), inline=boolValue)
