@@ -24,6 +24,7 @@ class moneyDrop:
         new_task = self.bot.loop.call_later(
             delay, self.close_drop, member, playersToPick, server)
         self.drops[member.id].update({"task": new_task})
+        
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
     async def startDrop(self, ctx):
         member = ctx.message.author
@@ -33,7 +34,7 @@ class moneyDrop:
         self.drops[member.id].update({"dropstate": dropState.PICKING})
         players = []
         self.drops[member.id].update({"enteredplayers": players})
-        self.drops[member.id].update({"timetoenter": 30})
+        self.drops[member.id].update({"timetoenter": 60})
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timetoenter"]})
         channel = server.get_channel(self.dropChannelId)
         data = self.msg_builder(member)
@@ -69,7 +70,8 @@ class moneyDrop:
                     return
                 players.append(user.id)
                 self.drops[dropper.id].update({"enteredplayers": players})
-                await self.bot.send_message(user, "You have entered into the drop. You will receive a pm notifying you if you are accepted or not.")         
+                await self.bot.send_message(user, "You have entered into the drop. You will receive a pm notifying you if you are accepted or not.") 
+                self.update_msg(dropper, self.drops[dropper.id]["message"])
     def close_drop(self, user: discord.Member, playersToPick, server):
         self.drops[user.id].update({"dropstate": dropState.ACTIVE})
         selectedPlayers = self.random_select(self.drops[user.id]["enteredplayers"], playersToPick)
@@ -95,13 +97,13 @@ class moneyDrop:
         data.add_field(name="Enter the drop", value="Message {} \"!enter {}\".".format(self.bot.user.mention ,member.name), inline=boolValue)
         return data
     def schedule_update(self, member, message, delay):
-        self.update_msg(member, message)
         if (self.drops[member.id]["timeleft"] - 30) >= 0:   
             self.bot.loop.call_later(
                 delay, self.update_delay_msg, member, message)
     def update_delay_msg(self, member: discord.Member, message):
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timeleft"] - 30})
         update_msg(member, message)
+        self.schedule_update(member, message, 30)
     def update_msg(self, member: discord.Member, message):
         self.bot.loop.create_task(editedMessage = self.bot.edit_message(message, embed=self.msg_builder(member)))
         self.drops[member.id].update({"message": editedMessage})
