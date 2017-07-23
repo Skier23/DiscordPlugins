@@ -144,9 +144,9 @@ class moneyDrop:
         if seconds < 60:
             return str(seconds) + " seconds"
         elif seconds % 60 == 0:
-            return str(seconds / 60) + " minutes"
+            return str(int(seconds / 60)) + " minutes"
         else:
-            return str(seconds / 60) + " minutes and " + str(seconds % 60) + " seconds"
+            return str(int(seconds / 60)) + " minutes and " + str(seconds % 60) + " seconds"
     def get_users_with_role(self, server: discord.Server,
                                  role: discord.Role) -> List[discord.User]:
             roled = []
