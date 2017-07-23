@@ -8,6 +8,7 @@ from typing import Any, Dict, List
 from .utils.chat_formatting import *
 from enum import Enum
 import random
+import asyncio
 
 class dropState(Enum):
     INACTIVE = 1
@@ -20,10 +21,12 @@ class moneyDrop:
         self.bot = bot  
         self.drops = {}
         self.dropChannelId = "337035351862542346"
-    def schedule_drop_close(self, member, delay: int, playersToPick, server):
-        new_task = self.bot.loop.call_later(
-            delay, self.close_drop, member, playersToPick, server)
-        self.drops[member.id].update({"task": new_task})
+    async def schedule_drop_close(self, member, delay: int, playersToPick, server):
+        #new_task = self.bot.loop.call_later(
+        #    delay, self.close_drop, member, playersToPick, server)
+        #self.drops[member.id].update({"task": new_task})
+        asyncio.sleep(delay)
+        await self.close_drop(member, playersToPick, server)
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
     async def startDrop(self, ctx):
         member = ctx.message.author
@@ -45,8 +48,8 @@ class moneyDrop:
         data2.add_field(name="Enter the drop", value="Reply with \"!enter {}\" to enter the drop.".format(member.name), inline=boolValue)
         for user in developers:
             await self.bot.send_message(user, embed=data2)
-        self.schedule_drop_close(member, self.drops[member.id]["timetoenter"], 1, server)   
-        self.schedule_update(member, self.drops[member.id]["message"], 30)
+        await self.schedule_drop_close(member, self.drops[member.id]["timetoenter"], 1, server)   
+        await self.schedule_update(member, self.drops[member.id]["message"], 30)
     @commands.command(name="enter", pass_context=True, invoke_without_command=True)
     async def enterDrop(self, ctx, dropper: discord.Member):
         user = ctx.message.author
@@ -72,17 +75,17 @@ class moneyDrop:
                 self.drops[dropper.id].update({"enteredplayers": players})
                 await self.bot.send_message(user, "You have entered into the drop. You will receive a pm notifying you if you are accepted or not.") 
                 self.update_msg(dropper, self.drops[dropper.id]["message"])
-    def close_drop(self, user: discord.Member, playersToPick, server):
+    async def close_drop(self, user: discord.Member, playersToPick, server):
         print("drop close")
         self.drops[user.id].update({"dropstate": dropState.ACTIVE})
         selectedPlayers = self.random_select(self.drops[user.id]["enteredplayers"], playersToPick)
         for id in selectedPlayers:
             thisMember = server.get_member(id)
-            self.bot.loop.create_task(self.bot.send_message(thisMember, "Congrats you have been accepted to the drop!"))
+            await self.bot.send_message(thisMember, "Congrats you have been accepted to the drop!")
         for id in self.drops[user.id]["enteredplayers"]:
             if id not in selectedPlayers:
                 thisMember = server.get_member(id)
-                self.bot.loop.create_task(self.bot.send_message(thisMember, "Unfortunately you have not been accepted to this drop. Try again next time."))
+                await self.bot.send_message(thisMember, "Unfortunately you have not been accepted to this drop. Try again next time.")
     def random_select(self, entPlayers: List, numOfPlayers):
         playersSize = len(entPlayers)
         if playersSize < numOfPlayers:
@@ -97,16 +100,18 @@ class moneyDrop:
         data.add_field(name="Drop Info", value="There are {} left to enter the drop. \n{} users have entered the drop so far.".format(self.sec_to_min(self.drops[member.id]["timeleft"]), len(self.drops[member.id]["enteredplayers"])), inline=boolValue)
         data.add_field(name="Enter the drop", value="Message {} \"!enter {}\".".format(self.bot.user.mention ,member.name), inline=boolValue)
         return data
-    def schedule_update(self, member, message, delay):
+    async def schedule_update(self, member, message, delay):
         if (self.drops[member.id]["timeleft"] - 30) >= 0:   
-            self.bot.loop.call_later(
-                delay, self.update_delay_msg, member, message)
-    def update_delay_msg(self, member: discord.Member, message):
+            #self.bot.loop.call_later(
+            #    delay, self.update_delay_msg, member, message)
+            asyncio.sleep(delay)
+            await self.update_delay_msg(member, message)
+    async def update_delay_msg(self, member: discord.Member, message):
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timeleft"] - 30})
         self.update_msg(member, message)
         self.schedule_update(member, message, 30)
-    def update_msg(self, member: discord.Member, message):
-        editedMessage = self.bot.loop.create_task(self.bot.edit_message(message, embed=self.msg_builder(member)))
+    async def update_msg(self, member: discord.Member, message):
+        editedMessage = await self.bot.edit_message(message, embed=self.msg_builder(member))
         self.drops[member.id].update({"message": editedMessage})
     def sec_to_min(self, seconds):
         if seconds < 60:
