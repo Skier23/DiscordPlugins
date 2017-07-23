@@ -39,6 +39,7 @@ class moneyDrop:
         self.drops[member.id].update({"enteredplayers": players})
         await self.bot.send_message(channel1, "How many users would you like to accept for the drop (2-20)?")
         amountOfPlayers = await self.bot.wait_for_message(author=member, channel=channel1)
+        amountOfPlayers = amountOfPlayers.content
         if not str.isnumeric(amountOfPlayers):
             await self.bot.send_message(channel1, "Try again but next time enter a number you dummy!")
             return
@@ -49,6 +50,7 @@ class moneyDrop:
         self.drops[member.id].update({"numplayers": playersInt})
         await self.bot.send_message(channel1, "How many minutes would you like the drop to be open for (3-10)?")
         minutes = await self.bot.wait_for_message(author=member, channel=channel1)
+        minutes = minutes.content
         if not str.isnumeric(minutes):
             await self.bot.send_message(channel1, "Try again but next time enter a number you dummy!")
             return
