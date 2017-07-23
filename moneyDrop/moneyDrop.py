@@ -119,7 +119,7 @@ class moneyDrop:
             thisMember = server.get_member(id)
             socialClub = await account.get_socialclub(thisMember, server)
             socialClubs = socialClubs + str(counter) + ". " + socialClub + "\n"
-            counter++
+            counter += 1
         socialClubs = socialClubs + "```"
         await self.bot.send_message(user, socialClubs)
     def random_select(self, entPlayers: List, numOfPlayers):
