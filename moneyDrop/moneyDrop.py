@@ -74,6 +74,7 @@ class moneyDrop:
     @commands.command(name="enter", pass_context=True, invoke_without_command=True)
     async def enterDrop(self, ctx, dropper: discord.Member):
         user = ctx.message.author
+        account = self.bot.get_cog("Register").Register
         if not ctx.message.channel.is_private:
             await self.bot.send_message(user, "This command can only be used in DM's")
             return
@@ -89,6 +90,9 @@ class moneyDrop:
                 return 
             elif self.drops[dropper.id]["dropstate"] == dropState.PICKING:
                 players = self.drops[dropper.id]["enteredplayers"]
+                if not await account.registered(user, ctx.message.server)
+                    await self.bot.send_message(user, "You need to register before you can enter drops!")
+                    return
                 if user.id in players:
                     await self.bot.send_message(user, "You already entered in this drop!")
                     return
@@ -107,6 +111,16 @@ class moneyDrop:
             if id not in selectedPlayers:
                 thisMember = server.get_member(id)
                 await self.bot.send_message(thisMember, "Unfortunately you have not been accepted to this drop. Try again next time.")
+        account = self.bot.get_cog("Register").Register
+        counter = 1
+        socialClubs = "```Social Club names:\n"
+        for id in selectedPlayers:
+            thisMember = server.get_member(id)
+            socialClub = await account.get_socialclub(thisMember, server)
+            socialClubs = socialClubs + str(counter) + ". " + socialClub + "\n"
+            counter++
+        socialClubs = socialClubs + "```"
+        await self.bot.send_message(user, socialClubs)
     def random_select(self, entPlayers: List, numOfPlayers):
         playersSize = len(entPlayers)
         if playersSize < numOfPlayers:

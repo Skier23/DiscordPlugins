@@ -183,11 +183,18 @@ class Register:
             await self.bot.add_roles(user, role)
             await self.bot.server_voice_state(user, mute=False)
             await self.bot.send_message(user, embed=data)
-    async def on_member_join(self, member):
+    async def on_member_join(self, member, server):
         server = member.server
         await self.bot.send_message(member, "hello user")
         if member.id not in self.usersArray[server.id]:
             await self.registerUser(member)
+    async def registered(self, user, server):
+        return user.id in self.usersArray[server.id]
+    async def get_socialclub(self, user, server):
+        if user.id not in self.usersArray[server.id]:  
+            return None
+        else:
+            return self.usersArray[server.id][user.id]["SocialClub"]
 def check_folder():
     if not os.path.exists("data/account"):
         print("Creating data/account folder...")
