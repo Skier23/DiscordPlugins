@@ -48,8 +48,8 @@ class moneyDrop:
         data2.add_field(name="Enter the drop", value="Reply with \"!enter {}\" to enter the drop.".format(member.name), inline=boolValue)
         for user in developers:
             await self.bot.send_message(user, embed=data2)
-        await self.schedule_drop_close(member, self.drops[member.id]["timetoenter"], 1, server)   
         await self.schedule_update(member, self.drops[member.id]["message"], 30)
+        await self.schedule_drop_close(member, self.drops[member.id]["timetoenter"], 1, server)   
     @commands.command(name="enter", pass_context=True, invoke_without_command=True)
     async def enterDrop(self, ctx, dropper: discord.Member):
         user = ctx.message.author
