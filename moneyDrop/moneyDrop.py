@@ -101,7 +101,7 @@ class moneyDrop:
             data.add_field(name="Enter the drop", value="Message {} \"!enter {}\".".format(self.bot.user.mention ,member.name), inline=boolValue)
         else:
             data.add_field(name="Ended Drop Alert", value="{} did a drop!".format(member.mention), inline=boolValue)
-            data.add_field(name="Drop Info", value="This drop has ended. \n{} users entered the drop.".format(self.sec_to_min(len(self.drops[member.id]["enteredplayers"])), inline=boolValue)
+            data.add_field(name="Drop Info", value="This drop has ended. \n{} users entered the drop.".format(len(self.drops[member.id]["enteredplayers"])), inline=boolValue)
         return data
     async def schedule_update(self, member, message, delay):
         if (self.drops[member.id]["timeleft"] - 30) >= 0:   
