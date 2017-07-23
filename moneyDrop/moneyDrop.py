@@ -128,11 +128,10 @@ class moneyDrop:
             counter += 1
         socialClubs = socialClubs + "```"
         await self.bot.send_message(user, socialClubs)
-        #await asyncio.sleep(4875)
-        await asyncio.sleep(60)
+        await asyncio.sleep(4875)
         await self.end_drop(user)
     @commands.command(name="enddrop", pass_context=True, invoke_without_command=True, no_pm=True)
-    async def end_drop_cmd(self):
+    async def end_drop_cmd(self, ctx):
         dropper = ctx.message.author
         server = dropper.server
         if dropper.id not in self.drops:
@@ -152,6 +151,7 @@ class moneyDrop:
             await self.bot.send_message(thisMember, "Thanks for participating!")
             await self.bot.remove_roles(user, role)
         await self.bot.send_message(user, "Your drop is now over.")
+        self.drops[user.id].update({"dropstate": dropState.INACTIVE})
     def random_select(self, entPlayers: List, numOfPlayers):
         playersSize = len(entPlayers)
         if playersSize < numOfPlayers:
