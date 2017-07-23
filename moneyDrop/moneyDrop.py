@@ -107,9 +107,13 @@ class moneyDrop:
         print("drop close")
         self.drops[user.id].update({"dropstate": dropState.ACTIVE})
         selectedPlayers = self.random_select(self.drops[user.id]["enteredplayers"], playersToPick)
+        self.drops[user.id].update({"selectedplayers": selectedPlayers})
+        role = discord.utils.get(server.roles, name="Drop")
         for id in selectedPlayers:
             thisMember = server.get_member(id)
             await self.bot.send_message(thisMember, "Congrats you have been accepted to the drop!")
+            await self.bot.send_message(thisMember, "Go over to #drop-1 for instructions for the drop.")
+            await self.bot.add_roles(user, role)
         for id in self.drops[user.id]["enteredplayers"]:
             if id not in selectedPlayers:
                 thisMember = server.get_member(id)
@@ -124,6 +128,29 @@ class moneyDrop:
             counter += 1
         socialClubs = socialClubs + "```"
         await self.bot.send_message(user, socialClubs)
+        #await asyncio.sleep(4875)
+        await asyncio.sleep(60)
+        await self.end_drop(user)
+    @commands.command(name="enddrop", pass_context=True, invoke_without_command=True, no_pm=True)
+    async def end_drop_cmd(self):
+        dropper = ctx.message.author
+        if dropper.id not in self.drops:
+            await self.bot.send_message(dropper, "You are not dropping")
+            return
+        if self.drops[dropper.id]["dropstate"] is not dropState.ACTIVE:
+            await self.bot.send_message(dropper, "You are not dropping")
+            return
+        await self.end_drop(dropper)
+    async def end_drop(self, user: discord.Member):
+        if self.drops[user.id]["dropstate"] is not dropState.ACTIVE:
+            return
+        role = discord.utils.get(server.roles, name="Drop")
+        for id in self.drops[user.id]["selectedplayers"]:
+            thisMember = server.get_member(id)
+            await self.bot.send_message(thisMember, "This drop is now over.")
+            await self.bot.send_message(thisMember, "Thanks for participating!")
+            await self.bot.remove_roles(user, role)
+        await self.bot.send_message(user, "Your drop is now over.")
     def random_select(self, entPlayers: List, numOfPlayers):
         playersSize = len(entPlayers)
         if playersSize < numOfPlayers:
