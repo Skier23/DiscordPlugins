@@ -134,6 +134,7 @@ class moneyDrop:
     @commands.command(name="enddrop", pass_context=True, invoke_without_command=True, no_pm=True)
     async def end_drop_cmd(self):
         dropper = ctx.message.author
+        server = dropper.server
         if dropper.id not in self.drops:
             await self.bot.send_message(dropper, "You are not dropping")
             return
