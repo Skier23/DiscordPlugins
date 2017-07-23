@@ -27,12 +27,14 @@ class moneyDrop:
         #self.drops[member.id].update({"task": new_task})
         await asyncio.sleep(delay)
         await self.close_drop(member, playersToPick, server)
-    @commands.bot_has_role("Dropper")
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True, no_pm=True)
     async def startDrop(self, ctx, role : discord.Role=None):
         member = ctx.message.author
         server = ctx.message.server
-        channel1 = ctx.message.channel    
+        channel1 = ctx.message.channel
+        role = discord.utils.get(server.roles, name="Dropper")
+        if role not in member.roles:
+            await self.bot.send_message(member, "You do not have permission")
         print("starting drop")
         self.drops[member.id] = {}
         self.drops[member.id].update({"dropstate": dropState.PICKING})
@@ -135,6 +137,9 @@ class moneyDrop:
     async def end_drop_cmd(self, ctx):
         dropper = ctx.message.author
         server = dropper.server
+        role = discord.utils.get(server.roles, name="Dropper")
+        if role not in dropper.roles:
+            await self.bot.send_message(member, "You do not have permission")
         if dropper.id not in self.drops:
             await self.bot.send_message(dropper, "You are not dropping")
             return
