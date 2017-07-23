@@ -27,6 +27,7 @@ class moneyDrop:
         #self.drops[member.id].update({"task": new_task})
         await asyncio.sleep(delay)
         await self.close_drop(member, playersToPick, server)
+    @commands.bot_has_role("Dropper")
     @commands.command(name="startdrop", pass_context=True, invoke_without_command=True, no_pm=True)
     async def startDrop(self, ctx, role : discord.Role=None):
         member = ctx.message.author
