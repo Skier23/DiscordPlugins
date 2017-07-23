@@ -188,7 +188,8 @@ class Register:
         await self.bot.send_message(member, "hello user")
         if member.id not in self.usersArray[server.id]:
             await self.registerUser(member)
-    async def registered(self, user, server):
+    async def registered(self, user: discord.Member):
+        server = user.server
         return user.id in self.usersArray[server.id]
     async def get_socialclub(self, user, server):
         if user.id not in self.usersArray[server.id]:  
