@@ -103,7 +103,7 @@ class moneyDrop:
         self.drops[member.id].update({"timeleft": self.drops[member.id]["timeleft"] - 30})
         update_msg(member, message)
     def update_msg(self, member: discord.Member, message):
-        self.bot.loop.create_task(editedMessage = self.bot.edit_message(message, embed=self.msg_builder(member))
+        self.bot.loop.create_task(editedMessage = self.bot.edit_message(message, embed=self.msg_builder(member)))
         self.drops[member.id].update({"message": editedMessage})
     def sec_to_min(self, seconds):
         if seconds < 60:
