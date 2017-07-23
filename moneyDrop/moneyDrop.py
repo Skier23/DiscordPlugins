@@ -27,7 +27,7 @@ class moneyDrop:
         #self.drops[member.id].update({"task": new_task})
         await asyncio.sleep(delay)
         await self.close_drop(member, playersToPick, server)
-    @commands.command(name="startdrop", pass_context=True, invoke_without_command=True)
+    @commands.command(name="startdrop", pass_context=True, invoke_without_command=True, no_pm=True)
     async def startDrop(self, ctx):
         member = ctx.message.author
         server = ctx.message.server
@@ -90,7 +90,7 @@ class moneyDrop:
                 return 
             elif self.drops[dropper.id]["dropstate"] == dropState.PICKING:
                 players = self.drops[dropper.id]["enteredplayers"]
-                registered = await account.registered(user)
+                registered = await account.registered(user, dropper.server)
                 if not registered:
                     await self.bot.send_message(user, "You need to register before you can enter drops!")
                     return
