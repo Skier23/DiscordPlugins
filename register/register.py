@@ -185,9 +185,12 @@ class Register:
             await self.bot.send_message(user, embed=data)
     async def on_member_join(self, member, server):
         server = member.server
-        await self.bot.send_message(member, "hello user")
         if member.id not in self.usersArray[server.id]:
             await self.registerUser(member)
+        else:
+            role = discord.utils.get(server.roles, name="Member")
+            await self.bot.add_roles(user, role)
+            await self.bot.server_voice_state(user, mute=False)
     async def registered(self, user, server):
         return user.id in self.usersArray[server.id]
     async def get_socialclub(self, user, server):
