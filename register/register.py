@@ -183,7 +183,7 @@ class Register:
             await self.bot.add_roles(user, role)
             await self.bot.server_voice_state(user, mute=False)
             await self.bot.send_message(user, embed=data)
-    async def on_member_join(self, member, server):
+    async def on_member_join(self, member):
         server = member.server
         if member.id not in self.usersArray[server.id]:
             await self.registerUser(member)
