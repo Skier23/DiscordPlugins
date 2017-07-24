@@ -149,7 +149,7 @@ class Register:
         data3 = discord.Embed(color=user.colour)
         data3.add_field(name="Please register.", value="Please register to the discord by replying with your SocialClub name(Can not be changed!)")
         await self.bot.send_message(user, embed=data3)
-        socialClub = await self.bot.wait_for_message(author=user, timeout=600)
+        socialClub = await self.bot.wait_for_message(author=user)
         socialClubStr = socialClub.content
         if not socialClubStr:
             await self.bot.send_message(user, "Registration timed out. To register type [p]register")
@@ -157,7 +157,7 @@ class Register:
         data2 = discord.Embed(colour=user.colour)
         data2.add_field(name="Do you want to add some information about yourself? (Other users will be able to see this)",value="Reply whatever information you would like to include or reply \"no\" to not add this information.")
         await self.bot.send_message(user, embed=data2)
-        about = await self.bot.wait_for_message(author=user, timeout=120)
+        about = await self.bot.wait_for_message(author=user)
         aboutStr = about.content
         if not aboutStr:
             await self.bot.send_message(user, "About information left empty. You can change this later.")
